@@ -5,7 +5,7 @@ on:
 
 env:
   REGISTRY: quay.io
-  IMAGE_NAME: fio
+  IMAGE_NAME: ${{ github.repository }}
 
 jobs:
   build-and-push-image:
