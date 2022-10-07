@@ -25,8 +25,8 @@ jobs:
           context: docker
           image: ${{ env.IMAGE_NAME }}
           tags: latest
-          containerfiles: |
-            ./Dockerfile
+          containerfiles:
+            ${{ github.repository }}/docker/Dockerfile
 
       - name: Push to quay.io
         id: push-to-quay
