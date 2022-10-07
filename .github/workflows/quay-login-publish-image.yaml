@@ -1,7 +1,7 @@
 name: quay-login-publish-image
 
 on:
-  push:
+  push: 
 
 env:
   REGISTRY: quay.io
@@ -41,4 +41,5 @@ jobs:
           context: docker
           push: true
           tags: ${{ steps.meta.outputs.tags }}
-          labels: ${{ steps.meta.outputs.labels }}            
+          labels: ${{ steps.meta.outputs.labels }}
+          
