@@ -15,6 +15,14 @@ jobs:
       packages: write
 
     steps:
+
+      - name: Log in to Quay.io
+        uses: redhat-actions/podman-login@v1
+        with:
+          username: ${{ secrets.USERNAME }}
+          password: ${{ secrets.PASSWORD }}
+          registry: ${{ env.REGISTRY }}
+
       - name: Checkout repository
         uses: actions/checkout@v3
 
@@ -34,6 +42,4 @@ jobs:
         with:
           image: ${{ steps.build-image.outputs.image }}
           tags: ${{ steps.build-image.outputs.tags }}
-          registry: quay.io
-          username: ${{ secrets.USERNAME }}
-          password: ${{ secrets.PASSWORD }}
+          registry: ${{ env.REGISTRY }}
