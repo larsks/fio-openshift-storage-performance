@@ -5,7 +5,7 @@ metadata:
 spec:
   containers:
     - image: quay.io/dystewar/fio-openshift-storage-performance:latest
-      name: fio-tooling
+      name: benchmarking
       volumeMounts:
         - mountPath: /tmp/
           name: results
