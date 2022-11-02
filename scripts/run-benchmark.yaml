@@ -4,8 +4,6 @@ metadata:
   name: test-script
 data:
   test.sh: |
-    umask 0002
-    chmod -R a+rX .
     set -ue
     kubestr 
     fio --output output.json --output-format json ~/fio-jobs/fio-jobs.fio
