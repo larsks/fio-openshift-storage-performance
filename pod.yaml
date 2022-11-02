@@ -5,11 +5,14 @@ metadata:
 spec:
   containers:
     - image: quay.io/dystewar/fio-openshift-storage-performance:latest
+      command:
+        - sleep
+        - "inf"
       name: benchmarking
       volumeMounts:
-        - mountPath: /tmp/
-          name: results
+        - mountPath: /target/pv
+          name: target-pv
   volumes:
-    - name: results
+    - name: target-pv
       persistentVolumeClaim:
-        claimName: fio-results
+        claimName: target-pv

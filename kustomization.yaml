@@ -7,6 +7,6 @@ commonLabels:
   app: fio-benchmark
 
 resources:
-  - target-pvc.yaml
-  - fio-results-pvc.yaml
+  - pvcs/
   - job.yaml
+  - scripts/

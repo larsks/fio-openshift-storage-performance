@@ -1,5 +1,7 @@
 FROM fedora:36
 
+COPY resources/kubestr /bin/
+
 RUN yum -y install \
 	fio \
 	curl \

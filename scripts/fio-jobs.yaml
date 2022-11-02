@@ -1,0 +1,53 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: fio-jobs
+data:
+  fio-jobs.fio: |
+    ; -- start job file including.fio --
+    [write_throughput]
+    name=write_throughput
+    numjobs=4
+    ioengine=libaio
+    direct=1
+    verify=0
+    bs=1M
+    iodepth=64
+    rw=write
+    group_reporting=1
+    size=100m
+
+    [write_iops]
+    name=write_iops
+    ioengine=libaio
+    direct=1
+    verify=0
+    bs=4K
+    iodepth=64
+    rw=randwrite
+    group_reporting=1
+    size=100m
+
+    [read_throughput]
+    name=read_throughput
+    numjobs=4
+    ioengine=libaio
+    direct=1
+    verify=0
+    bs=1M
+    iodepth=64
+    rw=read
+    group_reporting=1
+    size=100m
+
+    [read_iops]
+    name=read_iops
+    ioengine=libaio
+    direct=1
+    verify=0
+    bs=4K
+    iodepth=64
+    rw=randread
+    group_reporting=1
+    size=100m
+    ; -- end job file including.fio --
