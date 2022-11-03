@@ -16,9 +16,11 @@ data:
     rw=write
     group_reporting=1
     size=100m
+    write_bw_log=write_throughput 
 
     [write_iops]
     name=write_iops
+    numjobs=4
     ioengine=libaio
     direct=1
     verify=0
@@ -27,6 +29,7 @@ data:
     rw=randwrite
     group_reporting=1
     size=100m
+    write_iops_log=write_iops
 
     [read_throughput]
     name=read_throughput
@@ -39,9 +42,11 @@ data:
     rw=read
     group_reporting=1
     size=100m
+    write_bw_log=read_throughput
 
     [read_iops]
     name=read_iops
+    numjobs=4
     ioengine=libaio
     direct=1
     verify=0
@@ -50,4 +55,6 @@ data:
     rw=randread
     group_reporting=1
     size=100m
+    write_iops_log=read_iops
     ; -- end job file including.fio --
+    
