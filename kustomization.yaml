@@ -8,5 +8,5 @@ commonLabels:
 
 resources:
   - pvcs/
-  - job.yaml
+  - jobs/
   - scripts/
