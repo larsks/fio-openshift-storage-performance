@@ -32,7 +32,7 @@ spec:
             claimName: fio-results
         - name: kubestr-scripts
           configMap:
-            name: test-script
+            name: run-benchmark
         - name: fio-jobs
           configMap: 
             name: fio-jobs

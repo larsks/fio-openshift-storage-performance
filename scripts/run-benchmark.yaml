@@ -1,11 +1,10 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: test-script
+  name: run-benchmark
 data:
   test.sh: |
     set -ue
     kubestr 
     fio --output output.json --output-format json ~/fio-jobs/fio-jobs.fio
-    fio2gnuplot -p '* .log' -g
 ---
