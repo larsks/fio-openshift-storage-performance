@@ -4,7 +4,14 @@ metadata:
   name: run-benchmark
 data:
   test.sh: |
+    output_path=$1
     set -ue
+    echo "Running kubestr to enumerate storage provisioners:"
     kubestr 
+    echo "Running fio-jobs.yaml:"
     fio --output output.json --output-format json ~/fio-jobs/fio-jobs.fio
+    echo "Test finished, listing output files:"
+    ls
+    echo "Moving output files to pvc"
+    mv * -r $output_path
 ---

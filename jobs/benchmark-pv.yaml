@@ -10,27 +10,22 @@ spec:
         - image: quay.io/dystewar/fio-openshift-storage-performance:latest
           imagePullPolicy: IfNotPresent
           name: kubestr-fio-benchmark-pv
-          command: ["bash"]
-          args: 
-            - /scripts/test.sh
-            - cp * -r /results/pv
           workingDir: /target/pv
+          command:
+            - sh  
+            - /scripts/test.sh
+            - "/result/pv"
           volumeMounts:
-            - mountPath: /target/pv 
-              name: target-pv
-            - mountPath: /results
-              name: results
+            - mountPath: /result/pv 
+              name: fio-results
             - mountPath: /scripts
               name: kubestr-scripts
             - mountPath: /fio-jobs
               name: fio-jobs
       volumes:
-        - name: target-pv
+        - name: fio-results
           persistentVolumeClaim: 
             claimName: target-pv
-        - name: results
-          persistentVolumeClaim:
-            claimName: fio-results
         - name: kubestr-scripts
           configMap:
             name: run-benchmark

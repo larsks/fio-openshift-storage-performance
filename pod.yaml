@@ -10,9 +10,9 @@ spec:
         - "inf"
       name: benchmark-results
       volumeMounts:
-        - mountPath: /results
-          name: benchmark-results
+        - mountPath: /result
+          name: fio-results
   volumes:
-    - name: 
+    - name: fio-results
       persistentVolumeClaim:
-        claimName: fio-results
+        claimName: target-pv
