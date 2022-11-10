@@ -3,5 +3,4 @@ kind: Kustomization
 commonLabels: 
   app: fio-benchmark
 resources:
-    - fio-results-pvc.yaml
     - target-pvc.yaml

@@ -3,15 +3,12 @@ kind: ConfigMap
 metadata:
   name: run-benchmark
 data:
-  test.sh: |
-    output_path=$1
+  run-benchmark.sh: |
     set -ue
     echo "Running kubestr to enumerate storage provisioners:"
     kubestr 
-    echo "Running fio-jobs.yaml:"
-    fio --output output.json --output-format json ~/fio-jobs/fio-jobs.fio
-    echo "Test finished, listing output files:"
+    echo "Running jobs in fio-jobs.yaml:"
+    fio --output output.json --output-format json /fio-jobs/fio-jobs.fio
+    echo "Test finished, listing output files in:" && pwd
     ls
-    echo "Moving output files to pvc"
-    mv * -r $output_path
 ---

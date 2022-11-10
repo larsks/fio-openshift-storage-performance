@@ -5,12 +5,7 @@ metadata:
 spec:
   containers:
     - image: quay.io/dystewar/fio-openshift-storage-performance:latest
-      command:
-        - sh  
-        - /scripts/test.sh
-        - "/pv/result"
-        - /scripts/test.sh
-        - "/disk/result"
+      command:  
         - sleep
         - "inf"
       name: benchmark-results
@@ -32,6 +27,7 @@ spec:
     - name: kubestr-scripts
       configMap:
         name: run-benchmark
+        defaultMode: 0777
     - name: fio-jobs
       configMap: 
         name: fio-jobs
