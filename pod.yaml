@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: benchmark-results
+spec:
+  containers:
+    - image: quay.io/dystewar/fio-openshift-storage-performance:latest
+      command:
+        - sleep
+        - "inf"
+      name: benchmark-results
+      volumeMounts:
+        - mountPath: /result
+          name: fio-results
+  volumes:
+    - name: fio-results
+      persistentVolumeClaim:
+        claimName: target-pv
