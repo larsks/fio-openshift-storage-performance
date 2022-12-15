@@ -35,16 +35,20 @@ spec:
             - mountPath: /target
               name: target
             - mountPath: /mc
-              name: mc-results-to-bucket 
+              name: mc-results-to-bucket
+            - mountPath: /config
+              name: mc-config
       volumes:
+        - name: mc-config
+          emptyDir: {}
         - name: kubestr-scripts
           configMap:
             name: run-benchmark
             defaultMode: 0777
         - name: mc-results-to-bucket
-          configMap: 
+          configMap:
             name: mc-results-to-bucket
             defaultMode: 0777
         - name: fio-jobs
-          configMap: 
+          configMap:
             name: fio-jobs
