@@ -1,0 +1,19 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+- ../base
+
+nameSuffix: -disk
+
+patches:
+  - patch: |
+      apiVersion: batch/v1
+      kind: Job
+      metadata:
+        name: benchmark
+      spec:
+        template:
+          spec:
+            volumes:
+              - name: target
+                emptyDir: {}

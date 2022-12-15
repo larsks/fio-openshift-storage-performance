@@ -1,7 +1,7 @@
 apiVersion: batch/v1
 kind: Job
 metadata:
-  name: benchmark-disk
+  name: benchmark
 spec:
   template:
     spec:
@@ -9,27 +9,34 @@ spec:
       containers:
         - image: quay.io/dystewar/fio-openshift-storage-performance:latest
           imagePullPolicy: IfNotPresent
-          name: kubestr-fio-benchmark-disk
-          workingDir: /target/disk
+          name: kubestr-fio-benchmark
+          workingDir: /target
+          command:
+            - /scripts/run-benchmark.sh
+          volumeMounts:
+            - mountPath: /target
+              name: target
+            - mountPath: /scripts
+              name: kubestr-scripts
+            - mountPath: /fio-jobs
+              name: fio-jobs
+        - image: docker.io/minio/mc
+          imagePullPolicy: IfNotPresent
+          name: mc-results-to-bucket
+          workingDir: /target
+          command: 
+            - /mc/mc-results-to-bucket.sh
           envFrom:
             - configMapRef:
                 name: storage-benchmark-results
             - secretRef:
                 name: storage-benchmark-results
-          command: ["/bin/sh","-c"]
-          args: ["/scripts/run-benchmark.sh; /mc/mc-results-to-bucket.sh;"]
           volumeMounts:
-            - mountPath: /target/disk
-              name: target-disk
-            - mountPath: /scripts
-              name: kubestr-scripts
-            - mountPath: /fio-jobs
-              name: fio-jobs
+            - mountPath: /target
+              name: target
             - mountPath: /mc
-              name: mc-results-to-bucket
+              name: mc-results-to-bucket 
       volumes:
-        - name: target-disk
-          emptyDir: {}
         - name: kubestr-scripts
           configMap:
             name: run-benchmark
