@@ -4,6 +4,7 @@ metadata:
   name: run-benchmark
 data:
   run-benchmark.sh: |
+    #!/bin/sh
     set -ue
     echo "Running kubestr to enumerate storage provisioners:"
     kubestr 

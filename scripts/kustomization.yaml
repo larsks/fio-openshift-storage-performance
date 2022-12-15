@@ -5,3 +5,4 @@ commonLabels:
 resources:
     - fio-jobs.yaml
     - run-benchmark.yaml
+    - mc-results-to-bucket.sh

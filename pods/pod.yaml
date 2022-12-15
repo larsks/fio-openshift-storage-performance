@@ -8,7 +8,7 @@ spec:
       command:  
         - sleep
         - "inf"
-      name: benchmark-results
+      name: benchmark
       volumeMounts:
         - mountPath: /pv/result
           name: fio-results-pv
