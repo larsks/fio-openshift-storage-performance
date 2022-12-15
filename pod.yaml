@@ -4,15 +4,19 @@ metadata:
   name: benchmark-results
 spec:
   containers:
-    - image: quay.io/dystewar/fio-openshift-storage-performance:latest
-      command:
-        - sleep
-        - "inf"
+    - image: docker.io/minio/mc
+      command: ["mc"]
+      args: ["alias", "set", "store", "$(S3Endpoint)", "$(AWS_ACCESS_KEY_ID)", "$(AWS_SECRET_ACCESS_KEY)"]
       name: benchmark-results
+      envFrom:
+      - configMapRef:
+          name: storage-benchmark-results
+      - secretRef:
+          name: storage-benchmark-results
       volumeMounts:
         - mountPath: /result
           name: fio-results
   volumes:
     - name: fio-results
       persistentVolumeClaim:
-        claimName: target-pv
+        claimName: benchmark-target-pv

@@ -4,7 +4,6 @@ commonLabels:
   app: fio-benchmark-testing
 resources:
   - pvcs/
-  - pods/
   - scripts/
-  - namespace.yaml
-  - jobs/benchmark-pv.yaml
+  - jobs/
+  - obc.yaml
