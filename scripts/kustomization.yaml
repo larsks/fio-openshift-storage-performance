@@ -4,5 +4,9 @@ commonLabels:
   app: fio-benchmark
 resources:
     - fio-jobs.yaml
-    - run-benchmark.yaml
-    - mc-results-to-bucket.sh
+
+configMapGenerator:
+  - name: benchmark-scripts
+    files:
+      - run-benchmark.sh
+      - mc-results-to-bucket.sh

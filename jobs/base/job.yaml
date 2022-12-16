@@ -17,7 +17,7 @@ spec:
             - mountPath: /target
               name: target
             - mountPath: /scripts
-              name: kubestr-scripts
+              name: benchmark-scripts
             - mountPath: /fio-jobs
               name: fio-jobs
         - image: docker.io/minio/mc
@@ -25,7 +25,7 @@ spec:
           name: mc-results-to-bucket
           workingDir: /target
           command: 
-            - /mc/mc-results-to-bucket.sh
+            - /scripts/mc-results-to-bucket.sh
           envFrom:
             - configMapRef:
                 name: storage-benchmark-results
@@ -34,21 +34,17 @@ spec:
           volumeMounts:
             - mountPath: /target
               name: target
-            - mountPath: /mc
-              name: mc-results-to-bucket
+            - mountPath: /scripts
+              name: benchmark-scripts
             - mountPath: /config
               name: mc-config
       volumes:
         - name: mc-config
           emptyDir: {}
-        - name: kubestr-scripts
+        - name: benchmark-scripts
           configMap:
-            name: run-benchmark
-            defaultMode: 0777
-        - name: mc-results-to-bucket
-          configMap:
-            name: mc-results-to-bucket
-            defaultMode: 0777
+            name: benchmark-scripts
+            defaultMode: 0755
         - name: fio-jobs
           configMap:
             name: fio-jobs
