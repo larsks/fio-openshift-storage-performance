@@ -1,0 +1,52 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: benchmark-results
+spec:
+  template:
+    spec:
+      containers:
+        - name: web
+          image: docker.io/httpd:2.4
+          ports:
+            - containerPort: 8080
+              name: http
+          volumeMounts:
+            - name: apache-config
+              mountPath: /usr/local/apache2/conf/httpd.conf
+              subPath: httpd.conf
+            - name: htdocs
+              mountPath: /usr/local/apache2/htdocs
+            - name: apache-logs
+              mountPath: /usr/local/apache2/logs
+        - name: syncer
+          image: docker.io/minio/mc
+          workingDir: /htdocs
+          command:
+            - /scripts/copy-results.sh
+          envFrom:
+            - configMapRef:
+                name: storage-benchmark-results
+            - secretRef:
+                name: storage-benchmark-results
+          volumeMounts:
+            - name: htdocs
+              mountPath: /htdocs
+            - name: benchmark-scripts
+              mountPath: /scripts
+            - name: mc-config
+              mountPath: /config
+      volumes:
+        - name: htdocs
+          emptyDir: {}
+        - name: apache-config
+          configMap:
+            name: apache-config
+        - name: benchmark-scripts
+          configMap:
+            name: benchmark-scripts
+            defaultMode: 0755
+        - name: mc-config
+          emptyDir: {}
+        - name: apache-logs
+          emptyDir: {}

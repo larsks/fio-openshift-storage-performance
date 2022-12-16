@@ -10,3 +10,4 @@ configMapGenerator:
     files:
       - run-benchmark.sh
       - mc-results-to-bucket.sh
+      - copy-results.sh

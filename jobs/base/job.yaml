@@ -24,7 +24,7 @@ spec:
           imagePullPolicy: IfNotPresent
           name: mc-results-to-bucket
           workingDir: /target
-          command: 
+          command:
             - /scripts/mc-results-to-bucket.sh
           envFrom:
             - configMapRef:
